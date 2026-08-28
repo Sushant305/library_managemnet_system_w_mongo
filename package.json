@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Sushant305/library_managemnet_system#readme",
   "dependencies": {
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "mongodb": "^7.6.0",
     "mongoose": "^9.9.4"

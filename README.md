@@ -59,3 +59,5 @@ If the node_modules folder or package-lock.json is deleted, restore the dependen
 
 npm install
 
+ npm i dotenv
+
