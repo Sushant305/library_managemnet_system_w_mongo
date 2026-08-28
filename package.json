@@ -1,0 +1,26 @@
+{
+  "name": "library_managemnet_system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev":"nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sushant305/library_managemnet_system.git"
+  },
+  "author": "sushant navle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sushant305/library_managemnet_system/issues"
+  },
+  "homepage": "https://github.com/Sushant305/library_managemnet_system#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
