@@ -3,6 +3,8 @@ const { books } = require("../Data/books.json");
 const { users } = require("../Data/user.json");
 const router = express.Router();
 
+
+const {userModel , bookModel} = require("../models/index")
 /*
  * method = GET
  * description = get the information of all the books
