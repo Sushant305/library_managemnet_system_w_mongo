@@ -108,3 +108,31 @@ exports.getAllIssuedBooks = async (req,res) => {
       data: issuedBooks,  
     })
 }
+
+// router.post("/", (req, res) => {
+//   const { id, name, author, genre, price, publisher } = req.body;
+//   const check = books.find((elem) => elem.id === id);
+
+//   if (!id || !name || !author || !genre || !price || !publisher === undefined) {
+//     return res.status(404).json({
+//       success: false,
+//       Message: `plz fill all the require fields`,
+//     });
+//   }
+
+//   if (check) {
+//     return res.status(404).json({
+//       success: false,
+//       Message: `This book with same id is already exist`,
+//     });
+//   }
+
+//   const newBook = { id, name, author, genre, price, publisher };
+//   books.push(newBook);
+//   return res.status(201).json({
+//     success: true,
+//     message: "book added successfully",
+//     data: books,
+//   });
+// });
+
