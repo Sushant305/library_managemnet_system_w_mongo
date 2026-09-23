@@ -135,24 +135,23 @@ exports.getAllIssuedBooks = async (req, res) => {
 //     data: books,
 //   });
 // });
-exports.addNewBook = async () => {
+exports.addNewBook = async (req, res) => {
+
   const { data } = req.body;
 
   if (!data || Object.keys(data).length == 0) {
+
     return res.status(400).json({
       success: false,
       message: "Please Provide the data Here",
     });
+
   }
 
   await bookModel.create(data);
-  // res.status(200).json({
-  //   success:true,
-  //   message:"Books Added successfully",
-  //   data:data
-  // })
 
   const allBooks = await bookModel.find();
+
   res.status(200).json({
     success: true,
     message: "Books Added Successfully",
