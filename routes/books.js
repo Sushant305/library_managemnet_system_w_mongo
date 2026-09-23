@@ -6,7 +6,7 @@ const router = express.Router();
 
 const {userModel , bookModel} = require("../models/index");
 // get the logic from the controller
-const { getAllBooks, getSingleBookById, getAllIssuedBooks } = require("../controller/book-controller");
+const { getAllBooks, getSingleBookById, getAllIssuedBooks, addNewBook, updateBookById, deleteBookById } = require("../controller/book-controller");
 /*
  * method = GET
  * description = get the information of all the books
@@ -82,32 +82,7 @@ router.get("/:id",getSingleBookById)
 //     data: books,
 //   });
 // });
-router.post("/", (req, res) => {
-  const { id, name, author, genre, price, publisher } = req.body;
-  const check = books.find((elem) => elem.id === id);
-
-  if (!id || !name || !author || !genre || !price || !publisher === undefined) {
-    return res.status(404).json({
-      success: false,
-      Message: `plz fill all the require fields`,
-    });
-  }
-
-  if (check) {
-    return res.status(404).json({
-      success: false,
-      Message: `This book with same id is already exist`,
-    });
-  }
-
-  const newBook = { id, name, author, genre, price, publisher };
-  books.push(newBook);
-  return res.status(201).json({
-    success: true,
-    message: "book added successfully",
-    data: books,
-  });
-});
+router.post("/",addNewBook);
 
 /*
  * method = PUT
@@ -116,33 +91,33 @@ router.post("/", (req, res) => {
  * access = public
  * parameters = id
  */
+// router.put("/:id", (req, res) => {
+//   const { id } = req.params;
+//   const data = req.body;
+//   const check = books.find((elem) => elem.id === id);
 
-router.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const data = req.body;
-  const check = books.find((elem) => elem.id === id);
+//   if (!check) {
+//     return res.status(404).json({
+//       success: false,
+//       Message: `This book is not exist`,
+//     });
+//   }
 
-  if (!check) {
-    return res.status(404).json({
-      success: false,
-      Message: `This book is not exist`,
-    });
-  }
+//   const updateBookData = books.map((elem) => {
+//     if (elem.id === id) {
+//       return { ...elem, ...data };
+//     } else {
+//       return elem;
+//     }
+//   });
 
-  const updateBookData = books.map((elem) => {
-    if (elem.id === id) {
-      return { ...elem, ...data };
-    } else {
-      return elem;
-    }
-  });
-
-  res.status(200).json({
-    success: true,
-    data: updateBookData,
-    message: "book update successfully",
-  });
-});
+//   res.status(200).json({
+//     success: true,
+//     data: updateBookData,
+//     message: "book update successfully",
+//   });
+// });
+router.put("/:id",updateBookById);
 
 /*
  * method = DELETE
@@ -151,27 +126,28 @@ router.put("/:id", (req, res) => {
  * access = public
  * parameters = id
  */
-router.delete("/:id", (req, res) => {
-  const { id } = req.params;
+// router.delete("/:id", (req, res) => {
+//   const { id } = req.params;
 
-  const check = books.find((book) => book.id === id);
-  if (!check) {
-    return res.status(404).json({
-      success: false,
-      message: `Soory book is not found for id : ${id}`,
-    });
-  }
-  const updateBook = books.filter((each) => each.id !== id);
+//   const check = books.find((book) => book.id === id);
+//   if (!check) {
+//     return res.status(404).json({
+//       success: false,
+//       message: `Soory book is not found for id : ${id}`,
+//     });
+//   }
+//   const updateBook = books.filter((each) => each.id !== id);
 
-  // const indexUser = users.indexOf(check)
-  // users.splice(indexUser,1)
+//   // const indexUser = users.indexOf(check)
+//   // users.splice(indexUser,1)
 
-  res.status(200).json({
-    success: true,
-    message: "User delete successfully",
-    data: updateBook,
-  });
-});
+//   res.status(200).json({
+//     success: true,
+//     message: "User delete successfully",
+//     data: updateBook,
+//   });
+// });
+router.delete("/:id", deleteBookById);
 
 /*
  * method = GET
@@ -180,7 +156,6 @@ router.delete("/:id", (req, res) => {
  * access = public
  * parameters = none
  */
-
 // router.get("/issued/for-users", (req, res) => {
 //   const userWithIssuedBooks = users.filter((each) => each.issuedBook);
 
@@ -210,7 +185,6 @@ router.delete("/:id", (req, res) => {
 //     data: issuedBooks,
 //   });
 // });
-
 router.get("/issued/for-users", getAllIssuedBooks);
 
 /*
@@ -220,7 +194,6 @@ router.get("/issued/for-users", getAllIssuedBooks);
  * access = public
  * parameters = id
  */
-
 router.get('/subscription-details/:id', (req, res) => {
     const { id } = req.params;
 
