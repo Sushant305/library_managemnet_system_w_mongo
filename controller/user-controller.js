@@ -105,13 +105,13 @@ exports.addNewUser = async (req, res) => {
       message: "Please Provide the data Here",
     });
   }
-  await bookModel.create(data);
+  await userModel.create(data);
 
   const users = await userModel.find();
 
   res.status(200).json({
     success: true,
-    message: "Books Added Successfully",
+    message: "User Added Successfully",
     data: users,
   });
 };
