@@ -187,69 +187,6 @@ router.delete("/:id", deleteBookById);
 // });
 router.get("/issued/for-users", getAllIssuedBooks);
 
-/*
- * method = GET
- * description = get the subscription details
- * route = /subscription-details/:id
- * access = public
- * parameters = id
- */
-router.get('/subscription-details/:id', (req, res) => {
-    const { id } = req.params;
 
-    // Find the user by ID
-    const user = users.find((each) => each.id === id);
-    if (!user) {
-        return res.status(404).json({
-            success: false,
-            message: `User Not Found for id: ${id}`
-        });
-    }
-
-    // Extract the subscription details
-    const getDateInDays = (data = '') =>{
-        let date;
-        if(data){
-            date = new Date(data);
-        }else{
-            date = new Date();
-        }
-        let days = Math.floor( date/ (1000 * 60 * 60 * 24));
-        return days;
-    }
-
-    const subscriptionType = (date) => {
-        if(user.subscriptionType === "Basic"){
-            date = date + 90
-        }else if(user.subscriptionType === "Standard"){
-            date = date + 180
-    }else if(user.subscriptionType === "Premium"){
-            date = date + 365
-        }
-        return date;
-    }
-
-    // Subscription Expiration Calculation 
-    // January 1, 1970 UTC // milliseconds
-
-    let returnDate = getDateInDays(user.returnDate);
-    let currentDate = getDateInDays();
-    let subscriptionDate = getDateInDays(user.subscriptionDate);
-    let subscriptionExpiration = subscriptionType(subscriptionDate);
-
-    const data = {
-        ...user,
-        subscriptionExpired: subscriptionExpiration < currentDate,
-        subscriptionDaysLeft: subscriptionExpiration - currentDate,
-        daysLeftForExpiration: returnDate - currentDate,
-        returnDate: returnDate < currentDate ? "Book is overdue" : returnDate,
-        fine: returnDate < currentDate ? subscriptionExpiration <= currentDate ? 200 : 100 : 0
-    }
-
-    res.status(200).json({
-        success: true,
-        data
-    });
-});
 
 module.exports = router;
