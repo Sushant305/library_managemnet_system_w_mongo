@@ -195,9 +195,11 @@ exports.updateBookById = async (req, res) => {
       message: "Please Provide the data Here",
     });
   }
-  const updatedBook = await bookModel.findOneAndUpdate({ _id: id }, data, {
-    new: true,
-  });
+  const updatedBook = await bookModel.findOneAndUpdate(
+    { _id: id },
+    data,
+    { new: true,}
+  );
   if (!updatedBook) {
     return res.status(400).json({
       success: false,

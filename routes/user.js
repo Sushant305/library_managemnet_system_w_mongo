@@ -1,5 +1,6 @@
 const express = require("express");
 const { users } = require("../Data/user.json");
+const { getAllUsers } = require("../controller/user-controller");
 const router = express.Router()
 /*
  * method = GET
@@ -8,12 +9,13 @@ const router = express.Router()
  * access = public
  * parameters = none
  */
-router.get("/", (req, res) => {
-  res.status(200).json({
-    success: true,
-    data: users,
-  });
-});
+// router.get("/", (req, res) => {
+//   res.status(200).json({
+//     success: true,
+//     data: users,
+//   });
+// });
+router.get("/", getAllUsers);
 /*
  * method = GET
  * description = get the information of a particular student by using there id
